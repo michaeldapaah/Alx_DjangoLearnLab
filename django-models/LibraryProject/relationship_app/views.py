@@ -108,5 +108,5 @@ def delete_book(request, pk):
     book = get_object_or_404(Book, pk=pk)
     if request.method == "POST":
         book.delete()
-        return redirect("delete_books")
+        return redirect("list_books")
     return render(request, "relationship_app/delete_book.html", {"book": book})
