@@ -44,10 +44,31 @@ SECURE_HSTS_SECONDS = 31536000
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
+# =======================
+# 🔒 HTTPS SECURITY SETTINGS
+# =======================
+
+# Redirect all HTTP to HTTPS
+SECURE_SSL_REDIRECT = True  
+
+# Ensure cookies are only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
+
 # ✅ CSP (if you use django-csp middleware)
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
 CSP_SCRIPT_SRC = ("'self'", "https://cdn.jsdelivr.net")
+
+# Prevent MIME-sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True  
+
+# Prevent your site from being framed (clickjacking protection)
+X_FRAME_OPTIONS = "DENY"  
+
+# Enable browser XSS filter
+SECURE_BROWSER_XSS_FILTER = True  
 
 # Application definition
 
