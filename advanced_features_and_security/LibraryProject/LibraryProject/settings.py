@@ -25,8 +25,29 @@ SECRET_KEY = 'django-insecure-rol0dv_908bh%c=n9_0p_hht5+#r(b-l11p!a(bpv!5j@c(uxg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["library.com", "127.0.0.1/8000"]
 
+
+ALLOWED_HOSTS = ["yourdomain.com", "127.0.0.1"]  # ✅ Replace with your domain/IP
+
+# ✅ Browser security headers
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = "DENY"
+
+# ✅ Cookie security
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+# ✅ HSTS (forces HTTPS, enable in production with HTTPS configured)
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+# ✅ CSP (if you use django-csp middleware)
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_STYLE_SRC = ("'self'", "https://fonts.googleapis.com")
+CSP_SCRIPT_SRC = ("'self'", "https://cdn.jsdelivr.net")
 
 # Application definition
 
@@ -49,6 +70,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
+
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
