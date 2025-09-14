@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Book
-from .forms import BookForm  # ✅ Import form
+from .forms import BookForm, ExampleForm # ✅ Import form
+from django.views.decorators.csrf import csrf_protect
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
@@ -38,3 +39,17 @@ def book_delete(request, pk):
         book.delete()
         return redirect("book_list")
     return render(request, "bookshelf/book_confirm_delete.html", {"book": book})
+
+
+
+
+@csrf_protect
+def form_example(request):
+    if request.method == "POST":
+        form = ExampleForm(request.POST)
+        if form.is_valid():
+            # Normally process data securely here
+            return render(request, "bookshelf/form_success.html", {"form": form})
+    else:
+        form = ExampleForm()
+    return render(request, "bookshelf/form_example.html", {"form": form})
